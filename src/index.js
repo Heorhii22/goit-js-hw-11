@@ -9,6 +9,7 @@ const loadMoreBtn = document.querySelector('.load-more');
 const galleryList = document.querySelector('.gallery');
 
 let currentPage = 1;
+let lightbox;
 const perPage = 40;
 
 loadMoreBtn.classList.remove('load-more');
@@ -55,17 +56,17 @@ function onImgSearch(e) {
 }
 
 function createLightbox() {
-  let lightbox = new SimpleLightbox('.gallery a', {
+  lightbox = new SimpleLightbox('.gallery a', {
     captions: true,
     captionsData: 'alt',
     captionDelay: 250,
-  });
-  lightbox.refresh();
+  }).refresh();
 }
 
 function onLoadMoreImg() {
   const inputValue = inputEl.value.trim();
   currentPage += 1;
+  lightbox.destroy();
 
   fetchGallery(inputValue, currentPage).then(images => {
     console.log(images);
